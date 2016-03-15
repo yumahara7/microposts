@@ -18,14 +18,20 @@ class UsersController < ApplicationController
     end
   end
   def edit
-    unless session[:user_id] == @user.id
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to login_url
+    logged_in_user 
+    if logged_in?
+      unless  current_user == @user
+        flash[:danger] = "you can edit only your user profile "
+        redirect_to current_user
+      end
     end
    
   end
   def update
+    unless  current_user == @user
+      flash[:danger] = "you can edit only your user profile "
+      redirect_to current_user
+    end
     if @user.update(user_params)
       redirect_to user_path
     else
