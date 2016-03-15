@@ -2,7 +2,8 @@ class UsersController < ApplicationController
 
   before_action :set_detail, only:[:edit, :update]
   def show 
-   @user = User.find(params[:id])
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.order(created_at: :desc)
   end
   def new
     @user=User.new
