@@ -186,3 +186,27 @@ span.picture {
     border: 0;
   }
 }
+/* followings followers */
+.relationlink{
+  font-size: 20px;
+}
+.followings{
+  list-style: none;
+     li{
+      margin: 40px;
+  .user{
+  margin-top: 10px;
+  font-size: 20px;
+    }
+  }
+}
+.followers {
+   list-style: none;
+      li{
+        margin: 40px;
+  .user {
+  margin-top: 10px;
+  font-size: 20px;
+  }
+  }
+}
