@@ -1,4 +1,4 @@
-
+<page_entries_info 
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
@@ -9,6 +9,7 @@
       <div class="relationlink">
       <%= link_to "followings"  , followings_path(@user)%> (<%= @user.following_users.count %>)<br />
       <%= link_to "followers" , followers_path(@user)%>(<%= @user.follower_users.count %>)
+      <%= link_to "favorite"     , favos_path(@user) %>
       </div>
     </section>
   </aside>
@@ -22,5 +23,6 @@
       <% end %>
       </ol>
     <% end %>
+    <%= paginate @microposts%>
   </div>
 </div>

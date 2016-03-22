@@ -33,9 +33,22 @@ class User < ActiveRecord::Base
     following_users.include?(other_user)
   end
   def feed_items
-    Micropost.where(user_id: following_user_ids + [self.id])
+    Micropost.where(user_id: following_user_ids + [self.id]) 
+  end
+  has_many :favoriterelationships, class_name: "Favrelationship",
+                                 foreign_key: "user_id",
+                                 dependent: :destroy
+  has_many :favoritemicroposts, through: :favoriterelationships, source: :post 
+  
+  def favorite(micropost)
+    favoriterelationships.find_or_create_by(post_id: micropost.id)
   end
   
-
+  def unfavorite(micropost)
+    favorite_relationship = favoriterelationships.find_by(post_id: micropost.id)
+    favorite_relationship.destroy if favorite_relationship
+  end
+  
+ 
   
 end

@@ -1,12 +1,26 @@
 <li id="micropost-<%= micropost.id %>">
-  <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
-  <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
+  <%= link_to gravatar_for(micropost.trueuser, size: 50), micropost.trueuser %>
+  <% if micropost.reposted_user_id.present? %>
+  <span class="reposting_user"><%= link_to micropost.user.name, micropost.user %>さんがリポストしました</span> <br />
+  <% end %>
+  <span class="user"><%= link_to micropost.trueuser.name, micropost.trueuser %></span>
   <span class="content"><%= micropost.content %></span>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-    <% if current_user == micropost.user %>
-      <%= link_to "delete", micropost, method: :delete,
-                                       data: { confirm: "You sure?" } %>
+  <span class="timestamp">Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+  <% if current_user == micropost.user %>
+    <%= link_to "delete", micropost, method: :delete,
+                                     data: { confirm: "You sure?" } %>
+  <% else %>
+    <%= link_to "repost", repostings_path(micropost_id: micropost.id),method: :post %>
+    　
+    <% if current_user.favoritemicroposts.include?(micropost)%>
+     <%= link_to "remove from your favorites", favrelationship_path(micropost),method: :delete %>
+    <% else %>
+     
+     <%= link_to "add to your favorites", favrelationships_path(micropost_id: micropost.id),method: :post %>
     <% end %>
+    
+    
+  <% end %>
   </span>
+  
 </li>
