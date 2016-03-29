@@ -48,5 +48,6 @@ group :development do
   gem 'spring'
   gem 'pry-byebug', group: :development
   gem 'kaminari'
+  gem 'rails_12factor', group: :production
 end
 
